@@ -1,29 +1,8 @@
 import requests
 from bs4 import BeautifulSoup
-from mysql.connector import MySQLConnection, Error
-import mysql
 import pymongo
 import re
 
-dbConnect = mysql.connector.connect(
-    host="127.0.0.1",
-    user="root",
-    passwd="setembro2016",
-    database="telemedicina",
-    auth_plugin='mysql_native_password'
-)
-
-def insertGoogleRank(values):
-    sql = "INSERT INTO google_rank (`rank`, `title`, `link`, `content`) VALUES (%s, %s, %s, %s)"
-
-    try:
-        dbcursor = dbConnect.cursor()
-        dbcursor.executemany(sql, values)
-        dbConnect.commit()
-    except Error as e:
-        print('Error:', e)
-    finally:
-        dbcursor.close()
 
 def insertMongoDB(values):
     client = pymongo.MongoClient('mongodb://localhost:27017/')
@@ -54,7 +33,6 @@ def scrapSite(urlSite):
     else:
         return 'NaN'
 
-
 def scrapGoogle():
     search = 'telemedicina'
     url = 'https://www.google.com/search?q=' + search + '&num=100'
@@ -78,14 +56,12 @@ def scrapGoogle():
             print(link)
             print(content)
             print(len(content))
-            #value = (rank, title.get_text(), link, content)
             obj = {'rank': rank,
                     'title': title.get_text(),
                     'link': link,
                     'content': content }
             values.append(obj) 
 
-    #insertGoogleRank(values)
     insertMongoDB(values)
     print('FIM')
     
