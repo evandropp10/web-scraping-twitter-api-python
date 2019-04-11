@@ -1,4 +1,3 @@
-
 import requests
 from bs4 import BeautifulSoup
 from mysql.connector import MySQLConnection, Error
@@ -29,8 +28,7 @@ def scrapSite(urlSite):
     try:
         responseSite = requests.get(urlSite)
     except requests.exceptions.RequestException as e:
-        print(e)
-        return e
+        return str(e)
     
     encoding = responseSite.encoding if 'charset' in responseSite.headers.get('content-type', '').lower() else None
     soupSite = BeautifulSoup(responseSite.content, from_encoding=encoding)
@@ -68,6 +66,7 @@ def scrapGoogle():
             print(rank)
             print(link)
             print(content)
+            print(len(content))
             value = (rank, title.get_text(), link, content)
             values.append(value) 
 
