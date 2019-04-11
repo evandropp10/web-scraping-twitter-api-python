@@ -2,6 +2,7 @@ import requests
 from bs4 import BeautifulSoup
 from mysql.connector import MySQLConnection, Error
 import mysql
+import pymongo
 import re
 
 dbConnect = mysql.connector.connect(
@@ -24,6 +25,14 @@ def insertGoogleRank(values):
     finally:
         dbcursor.close()
 
+def insertMongoDB(values):
+    client = pymongo.MongoClient('mongodb://localhost:27017/')
+    db = client['telemedicina']
+    coll = db['google_rank']
+
+    x = coll.insert_many(values)
+    print(x.inserted_ids)
+
 def scrapSite(urlSite):
     try:
         responseSite = requests.get(urlSite)
@@ -42,6 +51,8 @@ def scrapSite(urlSite):
             words.remove('')
             
         return ','.join(words)
+    else:
+        return 'NaN'
 
 
 def scrapGoogle():
@@ -67,10 +78,15 @@ def scrapGoogle():
             print(link)
             print(content)
             print(len(content))
-            value = (rank, title.get_text(), link, content)
-            values.append(value) 
+            #value = (rank, title.get_text(), link, content)
+            obj = {'rank': rank,
+                    'title': title.get_text(),
+                    'link': link,
+                    'content': content }
+            values.append(obj) 
 
-    insertGoogleRank(values)
+    #insertGoogleRank(values)
+    insertMongoDB(values)
     print('FIM')
     
     
