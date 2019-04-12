@@ -8,7 +8,7 @@ coll = db['google_rank']
 cursor = coll.find()
 
 df = pd.DataFrame(list(cursor))
-
+df
 df['content'] = df['content'].str.lower()
 df['content'] = df['content'].str.split(',')
 
@@ -21,19 +21,15 @@ while cont < len(df):
     frames = [dfNew, dfAux]
     dfNew = pd.concat(frames)
     cont += 1
+dfNew
 
-## Início da limpeza dos dados
-# Eliminando todas as palavras com menos de 4 letras
-cont = 0
-while cont < len(dfNew):
-    if len(dfNew['words'].iloc[cont]) <= 3:
-        dfNew = dfNew.drop(cont)
-    cont += 1
-    if cont == len(dfNew):
-        break
+# 1.2) Gerando os 100 primeiros termos com mais incidência
+print(dfNew['words'].value_counts().head(100))
+df100 = pd.DataFrame(dfNew['words'].value_counts().head(100))
+df100.to_csv('100.csv')
 
-print(dfNew)
 
-print('ok1')
+
+
 
 

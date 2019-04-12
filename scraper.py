@@ -37,9 +37,11 @@ def scrapSite(urlSite):
             words.remove('')
         for x in words:
             if len(x.strip()) <= 4:
-                words.remove(x)
-            if 'class' in x.lower() or 'click' in x.lower():
-                words.remove(x)
+                while x in words:
+                    words.remove(x)
+            if 'class' in x.lower() or 'click' in x.lower() or 'idtab' in x.lower() or 'style' in x.lower() or 'div' in x.lower() or 'http' in x.lower() or 'false' in x.lower() or 'return' in x.lower() or 'function' in x.lower() or 'none' in x.lower() or 'share' in x.lower():
+                while x in words:
+                    words.remove(x)
             
             
         return ','.join(words)
