@@ -2,7 +2,8 @@ import pandas as pd
 import pymongo
 
 def analyze():
-    client = pymongo.MongoClient('mongodb://localhost:27017/')
+    #client = pymongo.MongoClient('mongodb://localhost:27017/')
+    client = pymongo.MongoClient('mongodb://datastore:27017/')
     db = client['telemedicina']
     coll = db['google_rank']
 
@@ -34,7 +35,7 @@ def analyze():
     df100.to_csv('100.csv')
 
 
-''' TEST
+'''
 client = pymongo.MongoClient('mongodb://localhost:27017/')
 db = client['telemedicina']
 coll = db['google_rank']

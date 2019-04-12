@@ -9,8 +9,8 @@ def main():
 
     print('>>> Analyzing Data...')
 
-    analyzeGoogleData.analyze
-    
+    analyzeGoogleData.analyze()
+
     print('>>> FINISH. Please check 100.csv and domains.csv')
 
 if __name__ == '__main__':

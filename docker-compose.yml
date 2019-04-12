@@ -4,6 +4,6 @@ datastore:
     - "27017:27017"
 application:
   build: .
-  command: python -u scraper.py
+  command: python -u app.py
   links:
     - datastore
