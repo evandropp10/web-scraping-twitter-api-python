@@ -3,12 +3,12 @@ from bs4 import BeautifulSoup
 import pymongo
 import re
 
-
+'''
 client = pymongo.MongoClient('mongodb://localhost:27017/')
 db = client['telemedicina']
 coll = db['google_rank']
 coll.drop()
-
+'''
 
 def insertMongoDB(values):
     client = pymongo.MongoClient('mongodb://localhost:27017/')

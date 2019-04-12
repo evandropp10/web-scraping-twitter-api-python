@@ -7,8 +7,14 @@ coll = db['google_rank']
 
 cursor = coll.find()
 
-df = pd.DataFrame(list(cursor))
-df
+df = pd.DataFrame(list(cursor)
+
+## 1.1
+df['domain'] = df['link'].apply(lambda x: x.split('/')[2])
+dfDomains = pd.DataFrame(df['domain'].value_counts())
+dfDomains.to_csv('domains.csv')
+
+## 1.2
 df['content'] = df['content'].str.lower()
 df['content'] = df['content'].str.split(',')
 
@@ -21,10 +27,8 @@ while cont < len(df):
     frames = [dfNew, dfAux]
     dfNew = pd.concat(frames)
     cont += 1
-dfNew
 
-# 1.2) Gerando os 100 primeiros termos com mais incidência
-print(dfNew['words'].value_counts().head(100))
+# Gerando os 100 primeiros termos com mais incidência
 df100 = pd.DataFrame(dfNew['words'].value_counts().head(100))
 df100.to_csv('100.csv')
 
