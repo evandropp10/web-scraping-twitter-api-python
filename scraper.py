@@ -3,12 +3,11 @@ from bs4 import BeautifulSoup
 import pymongo
 import re
 
-'''
-client = pymongo.MongoClient('mongodb://localhost:27017/')
-db = client['telemedicina']
-coll = db['google_rank']
-coll.drop()
-'''
+def deleteMongoDB():
+    client = pymongo.MongoClient('mongodb://localhost:27017/')
+    db = client['telemedicina']
+    coll = db['google_rank']
+    coll.drop()
 
 def insertMongoDB(values):
     client = pymongo.MongoClient('mongodb://localhost:27017/')
@@ -48,8 +47,7 @@ def scrapSite(urlSite):
     else:
         return 'NaN'
 
-def scrapGoogle():
-    search = 'telemedicina'
+def scrapGoogle(search):
     url = 'https://www.google.com/search?q=' + search + '&num=100'
 
     response = requests.get(url)
@@ -80,9 +78,3 @@ def scrapGoogle():
     insertMongoDB(values)
     print('FIM')
     
-    
-def main():
-    scrapGoogle()
-
-if __name__ == '__main__':
-    main()
