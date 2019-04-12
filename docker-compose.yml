@@ -1,0 +1,9 @@
+datastore:
+  image: mongo:4.0.6
+  ports:
+    - "27017:27017"
+application:
+  build: .
+  command: python -u scraper.py
+  links:
+    - datastore
