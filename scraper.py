@@ -4,6 +4,12 @@ import pymongo
 import re
 
 
+client = pymongo.MongoClient('mongodb://localhost:27017/')
+db = client['telemedicina']
+coll = db['google_rank']
+coll.drop()
+
+
 def insertMongoDB(values):
     client = pymongo.MongoClient('mongodb://localhost:27017/')
     db = client['telemedicina']
@@ -16,7 +22,8 @@ def scrapSite(urlSite):
     try:
         responseSite = requests.get(urlSite)
     except requests.exceptions.RequestException as e:
-        return str(e)
+        return ''
+        #str(e)
     
     encoding = responseSite.encoding if 'charset' in responseSite.headers.get('content-type', '').lower() else None
     soupSite = BeautifulSoup(responseSite.content, from_encoding=encoding)
@@ -24,10 +31,16 @@ def scrapSite(urlSite):
     cont = soupSite.find('body')
     if cont:
         words = cont.get_text().replace('\n', ' ')
-        words = re.sub(u'[^a-zA-Z0-9áéíóúÁÉÍÓÚâêîôÂÊÎÔãõÃÕçÇ: ]', '', words)
+        words = re.sub(u'[^a-zA-ZáéíóúÁÉÍÓÚâêîôÂÊÎÔãõÃÕçÇ ]', '', words)
         words = words.split(' ')
         while '' in words:
             words.remove('')
+        for x in words:
+            if len(x.strip()) <= 4:
+                words.remove(x)
+            if 'class' in x.lower() or 'click' in x.lower():
+                words.remove(x)
+            
             
         return ','.join(words)
     else:
