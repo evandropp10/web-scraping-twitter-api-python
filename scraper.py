@@ -67,10 +67,10 @@ def scrapGoogle(search):
             link = link.split('=')[1]
             link = link.split('&')[0]
             content = scrapSite(link)
-            print(rank)
-            print(link)
-            print(content)
-            print(len(content))
+            #print(rank)
+            #print(link)
+            #print(content)
+            #print(len(content))
             obj = {'rank': rank,
                     'title': title.get_text(),
                     'link': link,
