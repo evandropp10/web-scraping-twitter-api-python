@@ -6,14 +6,14 @@ import re
 def deleteMongoDB():
     #client = pymongo.MongoClient('mongodb://localhost:27017/')
     client = pymongo.MongoClient('mongodb://datastore:27017/')
-    db = client['telemedicina']
+    db = client['database']
     coll = db['google_rank']
     coll.drop()
 
 def insertMongoDB(values):
     #client = pymongo.MongoClient('mongodb://localhost:27017/')
     client = pymongo.MongoClient('mongodb://datastore:27017/')
-    db = client['telemedicina']
+    db = client['database']
     coll = db['google_rank']
 
     x = coll.insert_many(values)
@@ -78,5 +78,5 @@ def scrapGoogle(search):
             values.append(obj) 
 
     insertMongoDB(values)
-    print('FIM')
+
     
