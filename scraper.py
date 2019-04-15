@@ -26,7 +26,7 @@ def scrapSite(urlSite):
         #str(e)
     
     encoding = responseSite.encoding if 'charset' in responseSite.headers.get('content-type', '').lower() else None
-    soupSite = BeautifulSoup(responseSite.content, from_encoding=encoding)
+    soupSite = BeautifulSoup(responseSite.content, "html.parser", from_encoding=encoding)
 
     cont = soupSite.find('body')
     if cont:
