@@ -17,7 +17,6 @@ def insertMongoDB(values):
     coll = db['google_rank']
 
     x = coll.insert_many(values)
-    print(x.inserted_ids)
 
 def scrapSite(urlSite):
     try:

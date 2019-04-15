@@ -8,7 +8,6 @@ def insertMongoDB(values):
     coll = db['twitter']
 
     x = coll.insert_many(values)
-    print(x.inserted_ids)
 
 
 def queryTwitter(search):
