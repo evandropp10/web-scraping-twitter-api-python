@@ -46,7 +46,7 @@ def analyzeTwitter():
     df = pd.DataFrame(list(cursor))
 
     #2.1
-    dfUser = pd.Dataframe(df['user'].value_counts())
+    dfUser = pd.DataFrame(df['user'].value_counts())
     dfUser.to_csv('Twitter_users.csv')
 
     #2.2
