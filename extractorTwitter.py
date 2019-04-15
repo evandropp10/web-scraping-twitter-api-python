@@ -23,7 +23,6 @@ def queryTwitter(search):
     auth.set_access_token(access_token, access_token_secret)
     api = tweepy.API(auth)
 
-    #public_tweets = api.search('bitcoin since:2012-01-01 until:2014-01-30') #, lang='en', rpp=100)
     public_tweets = api.search(q=search, count=100)
 
     values = []
