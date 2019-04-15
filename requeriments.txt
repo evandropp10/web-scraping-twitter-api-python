@@ -2,3 +2,4 @@ pymongo
 pandas
 bs4
 requests
+tweepy
